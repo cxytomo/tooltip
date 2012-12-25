@@ -114,7 +114,7 @@
 		}
 	}
 	var tooltip = new Tooltip();
-	$('.tip a').mouseover(function (e) {
+	$('.tip a').mouseenter(function (e) {
 		tooltip.enter(e);
 	});
 	$('.tip a').mouseleave(function (e) {
