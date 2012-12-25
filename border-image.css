@@ -41,6 +41,10 @@ a:hover {
 	margin: 10px;
 }
 
+.tooltip.top {
+	
+}
+
 /*Webkit,Opera9.5+,Ie9+*/
 ::selection {
 	background-color: #20AEDD;
