@@ -58,31 +58,34 @@
 																//the set of matched elements, relative to the offset parent.
 			toLeft = tar.position().left;
 			this.setContent();
-			this.$target.parentNode.appendChild(this.$tip);
-			tip = document.getElementsByClassName('tooltip')[0];
-			this.tipBox = tip.getBoundingClientRect();
-			this.tipWidth = this.tipBox.width;
-			this.tipHeight = this.tipBox.height;
-			pos = this.posClass;
-			if(this.tarTop >= this.tipHeight) {
-				pos = "top";
+			if(this.$target.parentNode.getElementsByClassName('tooltip').length < 1){
+				this.$target.parentNode.appendChild(this.$tip);
+				tip = document.getElementsByClassName('tooltip')[0];
+				this.tipBox = tip.getBoundingClientRect();
+				this.tipWidth = this.tipBox.width;
+				this.tipHeight = this.tipBox.height;
+				pos = this.posClass;
+				if(this.tarTop >= this.tipHeight) {
+					pos = "top";
+				}
+				else {
+					pos = "bottom";
+				}
+				tip.className = 'tooltip ' + pos;
+				switch(pos) {
+					case "top":
+						top = toTop - this.tipHeight -2;
+						left = toLeft + this.tarWidth/2 - this.tipWidth/2;
+						break;
+					case "bottom":
+						top = toTop + this.tarHeight + 2;
+						left = toLeft + this.tarWidth/2 - this.tipWidth/2;
+						break;
+				}
+				$('.tooltip')[0].style.top = top + "px";
+				$('.tooltip')[0].style.left = left + "px";
 			}
-			else {
-				pos = "bottom";
-			}
-			tip.className = 'tooltip ' + pos;
-			switch(pos) {
-				case "top":
-					top = toTop - this.tipHeight -2;
-					left = toLeft + this.tarWidth/2 - this.tipWidth/2;
-					break;
-				case "bottom":
-					top = toTop + this.tarHeight + 2;
-					left = toLeft + this.tarWidth/2 - this.tipWidth/2;
-					break;
-			}
-			$('.tooltip')[0].style.top = top + "px";
-			$('.tooltip')[0].style.left = left + "px";
+			$('.tooltip .tooltip-arrow').css('marginLeft',(this.tipWidth - 12)/2);
 			return this.show();
 		}
 
@@ -104,13 +107,17 @@
 			var tip;
 			e = e || window.event;
 			tip = this.$tip;
-			return $('.tooltip').fadeOut('fast',function(){
-				tip.parentNode.removeChild(tip);
+			return function(){
+				if(tip && tip.parentNode){
+					tip.parentNode.removeChild(tip);
+				}
+			}();
+/*			return $('.tooltip').fadeOut('fast',function(){
+				if(tip && tip.parentNode){
+					tip.parentNode.removeChild(tip);
+				}
 			});
-		}
-
-	,	hide: function (e) {
-			this.$tip.parentNode.removeChild(this.$tip);
+*/
 		}
 	}
 	var tooltip = new Tooltip();
