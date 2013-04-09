@@ -11,7 +11,7 @@
 			return this.getPos();
 		}
 
-	, getPos: function (e) {
+	,	getPos: function (e) {
 			var tar
 			,	tarBox
 			,	width
