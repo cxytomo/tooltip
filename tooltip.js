@@ -127,4 +127,5 @@
 	$('.tip a').mouseleave(function (e) {
 		tooltip.leave();
 	});
+	
 }(window.jQuery);
